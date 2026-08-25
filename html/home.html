@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CINÉMA / Choose a movie</title>
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html"
+        ><span class="brand-mark">✦</span> CINÉMA</a
+      >
+      <div class="topbar-meta">
+        <span class="location">⌖ Warsaw, PL</span>
+        <a class="signup-link" href="account.html">Account</a>
+        <a class="avatar" href="account.html">MK</a>
+      </div>
+    </header>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">STEP 01 / 03</p>
+          <h1>What are we<br /><em>watching?</em></h1>
+          <p class="intro">
+            Choose a movie and a showtime. We will handle the rest.
+          </p>
+        </div>
+        <div class="hero-note">
+          <span>NEW</span><strong>Your cinema,<br />your rules.</strong>
+        </div>
+      </section>
+      <section class="toolbar">
+        <label class="search"
+          ><span>⌕</span
+          ><input
+            id="searchInput"
+            type="search"
+            placeholder="Search title, genre..."
+            autocomplete="off"
+        /></label>
+        <div class="chips" id="filters">
+          <button class="chip active" data-filter="All">All</button
+          ><button class="chip" data-filter="Action">Action</button
+          ><button class="chip" data-filter="Sci-Fi">Sci-Fi</button
+          ><button class="chip" data-filter="Drama">Drama</button>
+        </div>
+      </section>
+      <section>
+        <div class="section-heading">
+          <h2>Now on the big screen</h2>
+          <span id="resultCount"></span>
+        </div>
+        <div class="movie-grid" id="movieGrid"></div>
+      </section>
+      <div class="selection-bar hidden" id="selectionBar">
+        <div>
+          <small>SELECTED MOVIE</small><strong id="selectedTitle">—</strong
+          ><span id="selectedShowtime">Choose a showtime below</span>
+        </div>
+        <button class="primary" id="continueBtn" disabled>
+          Choose seats <span>→</span>
+        </button>
+      </div>
+    </main>
+    <script src="home.js"></script>
+  </body>
+</html>
