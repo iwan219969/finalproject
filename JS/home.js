@@ -1,243 +1,105 @@
-const movies = [
-  {
-    id: 1,
-    title: "Dune: Part Two",
-    genre: "Sci-Fi",
-    duration: "2h 46min",
-    rating: "8.7",
-    image:
-      "https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg",
-    showtimes: ["14:30", "17:20", "20:15"]
-  },
-  {
-    id: 2,
-    title: "Oppenheimer",
-    genre: "Drama",
-    duration: "3h 00min",
-    rating: "8.6",
-    image:
-      "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
-    showtimes: ["15:00", "18:30", "21:00"]
-  },
-  {
-    id: 3,
-    title: "John Wick 4",
-    genre: "Action",
-    duration: "2h 49min",
-    rating: "7.6",
-    image:
-      "https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg",
-    showtimes: ["13:20", "16:10", "19:30"]
-  },
-  {
-    id: 4,
-    title: "Interstellar",
-    genre: "Sci-Fi",
-    duration: "2h 49min",
-    rating: "8.7",
-    image:
-      "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
-    showtimes: ["14:00", "17:30", "20:45"]
-  }
-];
 
-const movieGrid = document.getElementById("movieGrid");
-const searchInput = document.getElementById("searchInput");
-const filters = document.getElementById("filters");
-const resultCount = document.getElementById("resultCount");
+const movieGrid = document.getElementById('movieGrid');
+const searchInput = document.getElementById('searchInput');
+const resultCount = document.getElementById('resultCount');
+const filterButtons = document.querySelectorAll('.chip');
+const selectionBar = document.getElementById('selectionBar');
+const selectedTitle = document.getElementById('selectedTitle');
+const selectedShowtime = document.getElementById('selectedShowtime');
+const continueBtn = document.getElementById('continueBtn');
 
-const selectionBar = document.getElementById("selectionBar");
-const selectedTitle = document.getElementById("selectedTitle");
-const selectedShowtime = document.getElementById("selectedShowtime");
-const continueBtn = document.getElementById("continueBtn");
-
+let activeFilter = 'All';
 let selectedMovie = null;
-let selectedTime = null;
-let currentFilter = "All";
+let selectedTime = '';
 
+function getVisibleMovies() {
+  const text = searchInput.value.trim().toLowerCase();
 
-// =========================
-// Render movies
-// =========================
-
-function renderMovies() {
-  const search = searchInput.value.toLowerCase().trim();
-
-  const filteredMovies = movies.filter((movie) => {
-    const matchesSearch =
-      movie.title.toLowerCase().includes(search) ||
-      movie.genre.toLowerCase().includes(search);
-
-    const matchesFilter =
-      currentFilter === "All" || movie.genre === currentFilter;
-
-    return matchesSearch && matchesFilter;
-  });
-
-  movieGrid.innerHTML = "";
-
-  resultCount.textContent = `${filteredMovies.length} movies`;
-
-  if (filteredMovies.length === 0) {
-    movieGrid.innerHTML = `
-      <div class="no-results">
-        <h3>No movies found</h3>
-        <p>Try another title or genre.</p>
-      </div>
-    `;
-
-    return;
-  }
-
-  filteredMovies.forEach((movie) => {
-    const movieCard = document.createElement("article");
-
-    movieCard.className = "movie-card";
-
-    movieCard.innerHTML = `
-      <div class="movie-poster">
-        <img src="${movie.image}" alt="${movie.title}">
-        <span class="rating">★ ${movie.rating}</span>
-      </div>
-
-      <div class="movie-info">
-        <div>
-          <h3>${movie.title}</h3>
-
-          <p>
-            ${movie.genre}
-            <span>•</span>
-            ${movie.duration}
-          </p>
-        </div>
-
-        <div class="showtimes">
-          ${movie.showtimes
-            .map(
-              (time) => `
-                <button
-                  class="showtime"
-                  data-movie="${movie.id}"
-                  data-time="${time}"
-                >
-                  ${time}
-                </button>
-              `
-            )
-            .join("")}
-        </div>
-      </div>
-    `;
-
-    movieGrid.appendChild(movieCard);
-  });
-
-  addShowtimeListeners();
-}
-
-
-// =========================
-// Showtime selection
-// =========================
-
-function addShowtimeListeners() {
-  const buttons = document.querySelectorAll(".showtime");
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const movieId = Number(button.dataset.movie);
-      const time = button.dataset.time;
-
-      selectedMovie = movies.find((movie) => movie.id === movieId);
-      selectedTime = time;
-
-      document
-        .querySelectorAll(".showtime")
-        .forEach((btn) => btn.classList.remove("selected"));
-
-      button.classList.add("selected");
-
-      updateSelection();
-    });
+  return movies.filter((movie) => {
+    const byFilter = activeFilter === 'All' || movie.genre === activeFilter;
+    const byText = !text || movie.title.toLowerCase().includes(text) || movie.genre.toLowerCase().includes(text);
+    return byFilter && byText;
   });
 }
-
-
-// =========================
-// Selection bar
-// =========================
 
 function updateSelection() {
-  if (!selectedMovie || !selectedTime) {
-    selectionBar.classList.add("hidden");
+  if (!selectedMovie) {
+    selectionBar.classList.add('hidden');
+    selectedTitle.textContent = '—';
+    selectedShowtime.textContent = 'Choose a showtime below';
     continueBtn.disabled = true;
     return;
   }
 
-  selectionBar.classList.remove("hidden");
-
+  selectionBar.classList.remove('hidden');
   selectedTitle.textContent = selectedMovie.title;
-
-  selectedShowtime.textContent = `Today at ${selectedTime}`;
-
-  continueBtn.disabled = false;
+  selectedShowtime.textContent = selectedTime ? `Selected time: ${selectedTime}` : 'Choose a showtime below';
+  continueBtn.disabled = !selectedTime;
 }
 
+function renderMovies() {
+  const items = getVisibleMovies();
+  resultCount.textContent = `${items.length} movie${items.length === 1 ? '' : 's'}`;
 
-// =========================
-// Search
-// =========================
+  if (!items.length) {
+    movieGrid.innerHTML = `
+      <div class="no-results">
+        <h3>No movies found</h3>
+        <p>Try another title or category.</p>
+      </div>
+    `;
+    return;
+  }
 
-searchInput.addEventListener("input", () => {
-  renderMovies();
+  movieGrid.innerHTML = items.map((movie) => {
+    const buttons = movie.times.map((time) => {
+      const chosen = selectedMovie && selectedMovie.title === movie.title && selectedTime === time;
+      return `<button class="showtime ${chosen ? 'selected' : ''}" data-title="${movie.title}" data-time="${time}">${time}</button>`;
+    }).join('');
+
+    return `
+      <article class="movie-card">
+        <div class="movie-poster">
+          <span class="rating">${movie.rating}</span>
+          <div class="movie-placeholder">${movie.title.slice(0, 2).toUpperCase()}</div>
+        </div>
+        <div class="movie-info">
+          <div>
+            <h3>${movie.title}</h3>
+            <p>${movie.genre} <span>•</span> ${movie.year}</p>
+          </div>
+          <div class="showtimes">${buttons}</div>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  document.querySelectorAll('.showtime').forEach((button) => {
+    button.addEventListener('click', () => {
+      const movie = movies.find((item) => item.title === button.dataset.title);
+      selectedMovie = movie || null;
+      selectedTime = button.dataset.time;
+      updateSelection();
+      renderMovies();
+    });
+  });
+}
+
+searchInput.addEventListener('input', renderMovies);
+
+filterButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    activeFilter = button.dataset.filter;
+    filterButtons.forEach((btn) => btn.classList.toggle('active', btn === button));
+    renderMovies();
+  });
 });
 
-
-// =========================
-// Filters
-// =========================
-
-filters.addEventListener("click", (event) => {
-  const button = event.target.closest(".chip");
-
-  if (!button) return;
-
-  document
-    .querySelectorAll(".chip")
-    .forEach((chip) => chip.classList.remove("active"));
-
-  button.classList.add("active");
-
-  currentFilter = button.dataset.filter;
-
-  renderMovies();
-});
-
-
-// =========================
-// Continue
-// =========================
-
-continueBtn.addEventListener("click", () => {
+continueBtn.addEventListener('click', () => {
   if (!selectedMovie || !selectedTime) return;
-
-  const bookingData = {
-    movieId: selectedMovie.id,
-    movieTitle: selectedMovie.title,
-    showtime: selectedTime
-  };
-
-  localStorage.setItem(
-    "cinemaBooking",
-    JSON.stringify(bookingData)
-  );
-
-  window.location.href = "seats.html";
+  localStorage.setItem('movieBooking', JSON.stringify({ title: selectedMovie.title, time: selectedTime }));
+  window.location.href = 'seats.html';
 });
-
-
-// =========================
-// Start
-// =========================
 
 renderMovies();
+updateSelection();
