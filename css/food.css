@@ -1,0 +1,260 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap");
+:root {
+  --ink: #151515;
+  --paper: #f4f1ea;
+  --acid: #d8f36a;
+  --coral: #ff6f61;
+  --muted: #77736b;
+  --line: #d9d5cc;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Syne", sans-serif;
+}
+.topbar {
+  height: 82px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 clamp(24px, 6vw, 96px);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.account-link {
+  color: var(--ink);
+  font: 11px 'DM Mono', monospace;
+  text-decoration: none;
+}
+.brand {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  font-size: 17px;
+}
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  background: var(--coral);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin-right: 9px;
+  font-size: 13px;
+}
+.back,
+.eyebrow {
+  font:
+    11px "DM Mono",
+    monospace;
+  color: var(--coral);
+  letter-spacing: 0.12em;
+}
+.shell {
+  max-width: 1250px;
+  margin: auto;
+  padding: 62px clamp(24px, 6vw, 96px) 100px;
+}
+.heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 55px;
+}
+.eyebrow {
+  margin: 0 0 15px;
+}
+.heading h1 {
+  font-size: clamp(45px, 6vw, 78px);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  margin: 0;
+}
+.heading em {
+  font-style: normal;
+  color: var(--coral);
+}
+.heading > p:last-child {
+  color: var(--muted);
+  font-size: 14px;
+}
+.content {
+  display: grid;
+  grid-template-columns: 1fr 310px;
+  gap: 80px;
+}
+.category {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-top: 1px solid var(--line);
+  padding-top: 17px;
+  margin-bottom: 18px;
+}
+.category h2 {
+  font-size: 22px;
+  margin: 0;
+  letter-spacing: -0.04em;
+}
+.category span {
+  font:
+    10px "DM Mono",
+    monospace;
+  color: var(--muted);
+}
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.food {
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  gap: 14px;
+  align-items: center;
+}
+.food-icon {
+  height: 70px;
+  background: var(--acid);
+  display: grid;
+  place-items: center;
+  font-size: 36px;
+}
+.food:nth-child(2) .food-icon {
+  background: #ffc6bc;
+}
+.food:nth-child(3) .food-icon {
+  background: #d4d0f5;
+}
+.food:nth-child(4) .food-icon {
+  background: #f4d58f;
+}
+.food h3 {
+  font-size: 14px;
+  margin: 0 0 5px;
+}
+.food p {
+  font:
+    10px "DM Mono",
+    monospace;
+  color: var(--muted);
+  margin: 0;
+}
+.add {
+  border: 1px solid var(--ink);
+  background: transparent;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 19px;
+  cursor: pointer;
+}
+.add:hover {
+  background: var(--ink);
+  color: var(--acid);
+}
+.order {
+  border-left: 1px solid var(--line);
+  padding-left: 32px;
+}
+.order-movie {
+  display: grid;
+  gap: 6px;
+  padding: 17px 0;
+  border-bottom: 1px solid var(--line);
+}
+.order-movie strong {
+  font-size: 19px;
+}
+.order-movie span {
+  font:
+    10px "DM Mono",
+    monospace;
+  color: var(--muted);
+}
+.order-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  font:
+    11px "DM Mono",
+    monospace;
+  border-bottom: 1px solid var(--line);
+}
+.order-line span:last-child {
+  color: var(--coral);
+}
+.total {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 24px;
+  font:
+    11px "DM Mono",
+    monospace;
+}
+.total strong {
+  font-size: 20px;
+}
+.primary {
+  width: 100%;
+  margin-top: 30px;
+  padding: 16px;
+  background: var(--ink);
+  color: var(--acid);
+  border: 0;
+  font:
+    11px "DM Mono",
+    monospace;
+  cursor: pointer;
+}
+.toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: var(--acid);
+  padding: 18px 22px;
+  font:
+    12px "DM Mono",
+    monospace;
+  transform: translateY(100px);
+  transition: 0.3s;
+}
+.toast.show {
+  transform: translateY(0);
+}
+@media (max-width: 800px) {
+  .heading {
+    display: block;
+    margin-bottom: 35px;
+  }
+  .heading > p:last-child {
+    margin-top: 25px;
+  }
+  .content {
+    display: block;
+  }
+  .order {
+    border: 0;
+    padding: 45px 0 0;
+  }
+  .food-grid {
+    grid-template-columns: 1fr;
+  }
+  .topbar {
+    height: 68px;
+  }
+}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CINÉMA / Account</title>
+  <link rel="stylesheet" href="account.css">
+</head>
+<body>
+  <main class="account-shell">
+    <nav class="account-nav">
+      <a class="brand" href="index.html"><span class="brand-mark">✦</span> CINÉMA</a>
+      <a class="back" href="index.html">← Back to movies</a>
+    </nav>
+    <section class="account-card">
+      <p class="eyebrow">YOUR CINÉMA ACCOUNT</p>
+      <h1>Make it<br><em>personal.</em></h1>
+      <p class="intro" id="accountStatus">Update your details for your next movie night.</p>
+      <form id="accountForm">
+        <label>Full name<input id="name" required type="text"></label>
+        <label>Email address<input id="email" disabled type="email"></label>
+        <label>New password<input id="password" minlength="6" type="password" placeholder="Leave blank to keep current password"></label>
+        <button class="primary" type="submit">Save changes <span>→</span></button>
+      </form>
+      <p class="form-message" id="message"></p>
+      <button class="logout" id="logout" type="button">Log out</button>
+    </section>
+  </main>
+  <script src="account.js"></script>
+</body>
+</html>

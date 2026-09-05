@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>CINÉMA / Choose seats</title>
+    <link rel="stylesheet" href="seats.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html"
+        ><span class="brand-mark">✦</span> CINÉMA</a
+      >
+      <div class="header-actions">
+        <a class="account-link" href="account.html">Account</a>
+        <a class="back" href="index.html">← Change movie</a>
+      </div>
+    </header>
+    <main class="layout">
+      <section class="seat-stage">
+        <div class="step">
+          <span>02</span>
+          <div>
+            <p>STEP 02 / 03</p>
+            <h1>Find your<br /><em>seat.</em></h1>
+          </div>
+        </div>
+        <div class="screen"><span>SCREEN</span></div>
+        <div class="seat-map" id="seatMap"></div>
+        <div class="legend">
+          <span><i class="free"></i> Available</span
+          ><span><i class="selected"></i> Selected</span
+          ><span><i class="taken"></i> Occupied</span>
+        </div>
+      </section>
+      <aside class="summary">
+        <p class="eyebrow">YOUR BOOKING</p>
+        <h2 id="movieName">—</h2>
+        <p id="showInfo">—</p>
+        <hr />
+        <div class="summary-row">
+          <span>Selected seats</span><strong id="seatText">—</strong>
+        </div>
+        <div class="summary-row">
+          <span>Tickets</span><strong id="ticketPrice">$0.00</strong>
+        </div>
+        <button class="primary" id="continueBtn" disabled>
+          Continue to snacks <span>→</span>
+        </button>
+      </aside>
+    </main>
+    <script src="seats.js"></script>
+  </body>
+</html>

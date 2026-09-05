@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>CINÉMA / Snacks</title>
+    <link rel="stylesheet" href="food.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html"
+        ><span class="brand-mark">✦</span> CINÉMA</a
+      ><div class="header-actions"><a class="account-link" href="account.html">Account</a><span class="back">STEP 03 / 03</span></div>
+    </header>
+    <main class="shell">
+      <section class="heading">
+        <p class="eyebrow">ONE LAST THING</p>
+        <h1>A movie<br /><em>without snacks?</em></h1>
+        <p>Add something tasty for the show.</p>
+      </section>
+      <div class="content">
+        <section>
+          <div class="category">
+            <h2>Cinema classics</h2>
+            <span>4 ITEMS</span>
+          </div>
+          <div class="food-grid" id="foodGrid"></div>
+        </section>
+        <aside class="order">
+          <p class="eyebrow">ORDER SUMMARY</p>
+          <div class="order-movie">
+            <strong id="movieName">—</strong><span id="showInfo">—</span
+            ><span id="seatInfo">—</span>
+          </div>
+          <div id="orderItems"></div>
+          <div class="total">
+            <span>TOTAL</span><strong id="total">$0.00</strong>
+          </div>
+          <button class="primary" id="pay">
+            Confirm booking <span>→</span>
+          </button>
+        </aside>
+      </div>
+    </main>
+    <div class="toast" id="toast">Booking confirmed. Enjoy the show!</div>
+    <script src="food.js"></script>
+  </body>
+</html>
